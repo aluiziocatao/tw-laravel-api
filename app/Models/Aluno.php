@@ -10,6 +10,8 @@ class Aluno extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['nome', 'nascimento', 'genero', 'turma_id'];
+
     /**
      * Define a relação entre aluno e turma
      *

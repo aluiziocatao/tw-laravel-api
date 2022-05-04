@@ -19,20 +19,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/alunos', [AlunoController::class, 'index'])->name('alunos.index');
+//Route::get('/alunos', [AlunoController::class, 'index'])->name('alunos.index');
+//Route::get('/alunos/{aluno}', [AlunoController::class, 'show'])->name('alunos.show');
+//Route::post('/alunos', [AlunoController::class, 'store'])->name('alunos.store');
+//Route::put('/alunos/{aluno}', [AlunoController::class, 'update'])->name('alunos.update');
+//Route::delete('/alunos/{aluno}', [AlunoController::class, 'destroy'])->name('alunos.destroy');
 
-Route::get('/alunos/{id}', function () {
-    return 'detalhes do aluno';
-})->name('alunos.show');
-
-Route::post('/alunos', function () {
-    return 'criar aluno';
-})->name('alunos.store');
-
-Route::put('/alunos', function () {
-    return 'atualizar aluno';
-})->name('alunos.update');
-
-Route::delete('/alunos', function () {
-    return 'apagar aluno';
-})->name('alunos.destroy');
+Route::apiResource('alunos', AlunoController::class);
