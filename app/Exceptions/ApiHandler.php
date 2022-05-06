@@ -2,8 +2,8 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Http\Response;
 use Throwable;
+use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -15,13 +15,15 @@ trait ApiHandler {
      * @return Response
      */
     public function tratarErros(Throwable $exception): Response {
-        if($exception instanceof ModelNotFoundException){
+        if ($exception instanceof ModelNotFoundException) {
             return $this->modelNotFoundException();
         }
 
-        if($exception instanceof ValidationException) {
+        if ($exception instanceof ValidationException) {
             return $this->validationException($exception);
         }
+
+        return false;
     }
 
     /**
@@ -30,7 +32,7 @@ trait ApiHandler {
      * @return Response
      */
     public function modelNotFoundException(): Response {
-        return this->respostaPadrao(
+        return $this->respostaPadrao(
             "Registro-nao-encontrado",
             "O sistema não encontrou o registro que você está buscando",
             404
@@ -44,7 +46,7 @@ trait ApiHandler {
      * @return Response
      */
     public function validationException(ValidationException $e): Response {
-        return this->respostaPadrao(
+        return $this->respostaPadrao(
             "erro-validacao",
             "Os dados enviados são inválidos",
             400,
@@ -68,7 +70,7 @@ trait ApiHandler {
             'status' => $status
         ];
 
-        if($erros){
+        if ($erros) {
             $dadosResposta = $dadosResposta + ['erros' => $erros];
         }
         return response($dadosResposta, $status);
